@@ -1,6 +1,6 @@
 ---
 title: "REPORTE ESTADISTICO CITRINO CAPITAL INMOBILIARIOS"
-date: "`r format(Sys.time(), '%d de %B de %Y, %H:%M')`"
+date: "`r format(Sys.time(), '%d de %B de %Y, %H:%M', tz = 'America/La_Paz')`"
 output:
   flexdashboard::flex_dashboard:
     orientation: rows
