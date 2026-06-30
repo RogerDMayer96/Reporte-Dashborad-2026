@@ -36,6 +36,7 @@ output:
 # Sys.setlocale("LC_ALL", "en_US.UTF-8")
 library(googledrive)
 library(readxl)
+library(stringr)
 # 2. Autenticación en Google Drive (te pedirá acceso en el navegador)
 sa_json <- Sys.getenv("GDRIVE_SA_JSON")
 tmp_key <- tempfile(fileext = ".json")
