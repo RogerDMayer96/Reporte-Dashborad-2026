@@ -114,8 +114,8 @@ calcular_metricas_embudo <- function(data, fecha_inicio, fecha_fin) {
 # ==========================================
 # 1. CÁCULOS DE CANTIDADES
 # ==========================================
-cant_act  <- calcular_metricas_embudo(df, "2026-07-06", "2026-07-10")
-cant_ant  <- calcular_metricas_embudo(df, "2026-06-29", "2026-07-03") 
+cant_act  <- calcular_metricas_embudo(df, "2026-07-13", "2026-07-17")
+cant_ant  <- calcular_metricas_embudo(df, "2026-07-06", "2026-07-10") 
 cant_hist <- calcular_metricas_embudo(df, "2026-01-01", "2026-06-30")
 # ==========================================
 # 2. CONSTRUCCIÓN DE OBJETIVOS HISTÓRICOS
@@ -240,11 +240,11 @@ widget_reactable <- reactable(
     variacion = colDef(name = "VARIACIÓN CANTIDAD", html = TRUE, align = "center", headerStyle = estilo_cabecera_comun)),
   # Súper Encabezados
   columnGroups = list(
-    colGroup(name = "SEMANA ACTUAL (6 AL 10 JUL)", 
+    colGroup(name = "SEMANA ACTUAL (13 AL 17 JULIO)", 
              columns = c("CANTIDAD_ACTUAL", "RATIO_AVANCE_ACTUAL", "OBJETIVO_RA_ACTUAL", "RATIO_CONVERS_ACTUAL", "OBJETIVO_RC_ACTUAL"),
       headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center", padding = "6px")),
     colGroup(
-      name = "SEMANA ACTUAL (29 JUN AL 03 JULIO)", 
+      name = "SEMANA ANTERIOR (06 AL 10 JULIO)", 
       columns = c("CANTIDAD_ANTERIOR", "RATIO_AVANCE_ANT", "OBJETIVO_RA_ANT", "RATIO_CONVERS_ANT", "OBJETIVO_RC_ANT"),
       headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center", padding = "6px"))))
 # Renderizado final en el documento HTML
@@ -688,8 +688,8 @@ render_canal(df, "Tiktok 26", Presupuesto_tiktok26, "#046865", "Presupuesto Tikt
 # ==========================================
 # CONFIGURACIÓN GLOBAL (definir UNA sola vez)
 # ==========================================
-F_ACT_INI  <- "2026-07-06"; F_ACT_FIN  <- "2026-07-10"
-F_ANT_INI  <- "2026-06-29"; F_ANT_FIN  <- "2026-07-03"
+F_ACT_INI  <- "2026-07-13"; F_ACT_FIN  <- "2026-07-17"
+F_ANT_INI  <- "2026-07-06"; F_ANT_FIN  <- "2026-07-10"
 F_HIST_INI <- "2026-01-01"; F_HIST_FIN <- "2026-06-30"
 
 estados_desde <- list(
@@ -858,8 +858,8 @@ render_objeto <- function(df, objeto) {
       var     = colDef(name = "VARIACIÓN C.", cell = render_variacion, minWidth = 110, headerStyle = estilo_cabecera_comun)
     ),
     columnGroups = list(
-      colGroup(name = "SEMANA ACTUAL (6 AL 10 JUL)", columns = c("CA","RA_A","OB_RA_A","RC_A","OB_RC_A"), headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
-      colGroup(name = "SEMANA ANTERIOR (29 JUN AL 3 JUL)", columns = c("CAN","RA_N","OB_RA_N","RC_N","OB_RC_N"), headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center"))
+      colGroup(name = "SEMANA ACTUAL (13 AL 17 JUL)", columns = c("CA","RA_A","OB_RA_A","RC_A","OB_RC_A"), headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
+      colGroup(name = "SEMANA ANTERIOR (06 AL 10 JUL)", columns = c("CAN","RA_N","OB_RA_N","RC_N","OB_RC_N"), headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center"))
     )
   )
 
@@ -1427,8 +1427,8 @@ row_style_canales <- function(index) {
 df_sem <- df_canal %>%
   group_by(Canal) %>%
   summarise(
-    Semana_Curso    = sum(Suma_Registros[Semana >= "2025-12-01" & Semana <= "2026-07-10"], na.rm = TRUE),
-    Semana_Anterior = sum(Suma_Registros[Semana >= "2025-12-01" & Semana <= "2026-07-03"], na.rm = TRUE),
+    Semana_Curso    = sum(Suma_Registros[Semana >= "2025-12-01" & Semana <= "2026-07-17"], na.rm = TRUE),
+    Semana_Anterior = sum(Suma_Registros[Semana >= "2025-12-01" & Semana <= "2026-07-10"], na.rm = TRUE),
     .groups = "drop") %>%
   mutate(Absoluta = Semana_Curso - Semana_Anterior,
          Relativa = ifelse(Semana_Anterior == 0, 0, (Semana_Curso / Semana_Anterior) - 1))
@@ -1455,8 +1455,8 @@ reactable(
   defaultColDef = colDef(minWidth = 120),
   columns = list(
     Canal           = colDef(name = "CANALES", align = "left", minWidth = 160, headerStyle = estilo_cabecera_comun, style = list(fontWeight = "bold", borderRight = "2px solid #D5D8DC", background = "inherit")),
-    Semana_Curso    = colDef(name = "SEMANA EN CURSO (6 AL 10 JULIO)", cell = crear_barra_canal("#AED6F1", max_curso), headerStyle = estilo_cabecera_comun),
-    Semana_Anterior = colDef(name = "SEMANA ANTERIOR (29 JUN AL 03 JUL)", cell = crear_barra_canal("#7EB3FF", max_ant), headerStyle = estilo_cabecera_comun),
+    Semana_Curso    = colDef(name = "SEMANA EN CURSO (13 AL 17 JULIO)", cell = crear_barra_canal("#AED6F1", max_curso), headerStyle = estilo_cabecera_comun),
+    Semana_Anterior = colDef(name = "SEMANA ANTERIOR (06 Al 10 JULIO)", cell = crear_barra_canal("#7EB3FF", max_ant), headerStyle = estilo_cabecera_comun),
     Absoluta        = colDef(name = "ABSOLUTA", cell = crear_render_var_canal(FALSE), headerStyle = estilo_cabecera_comun),
     Relativa        = colDef(name = "RELATIVA", cell = function(value, index) {
       if(index == 8) return(div(style = list(fontWeight = "bold", textAlign = "center"), paste0(round(value * 100, 1), "%")))
@@ -1737,14 +1737,14 @@ layout_desag(g1, g2,
 library(DT)
 library(purrr)
 
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July 1 - 17")
 
 df_procesado <- df %>%
   filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-10") ~ "Julio 1 al 10",
+      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-17") ~ "Julio 1 al 17",
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -1770,7 +1770,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = `June`,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 grafico_rosca <- highchart() %>%
@@ -1817,7 +1817,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -1886,7 +1886,7 @@ dashboard_final
 ### Presupuesto de inversión
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July 1 - 17")
 
 df_procesado <- df %>%
   # Cambiamos el filtro inicial a la columna de presupuesto
@@ -1894,7 +1894,7 @@ df_procesado <- df %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-10") ~ "Julio 1 al 10",
+      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-17") ~ "Julio 1 al 17",
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses),
     # NUEVO: Segmentación del presupuesto en rangos legibles para la tabla y rosca
@@ -1932,7 +1932,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = `June`,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -1980,7 +1980,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2261,14 +2261,14 @@ generar_boxplot_inmueble(df, "Lote Condominio")
 ### Tipo de Objetivo
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June", "July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June", "July 1 - 17")
 
 df_procesado <- df %>%
   filter(!is.na(Objeto), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-10") ~ "July 1 - 10",
+      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-17") ~ "July 1 - 17",
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Objeto, Mes) %>%
@@ -2298,7 +2298,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -2348,7 +2348,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2418,14 +2418,14 @@ dashboard_final
 
 ```{r}
 
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June", "July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June", "July 1 - 17")
 
 df_procesado <- df %>%
   filter(!is.na(Pago), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-10") ~ "Julio 1 al 10",
+      Fecha >= as.Date("2026-07-01") & Fecha <= as.Date("2026-07-10") ~ "Julio 1 al 17",
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Pago, Mes) %>%
@@ -2455,7 +2455,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -2505,7 +2505,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE")
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE")
 )
 
 tabla_dt <- datatable(
@@ -2770,7 +2770,7 @@ generar_boxplot_inmueble(df, "Anticrético")
 ### Principal Zona
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May","June", "July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May","June", "July 1 - 17")
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 1`), !is.na(`1er Contacto`)) %>%
@@ -2806,7 +2806,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2855,7 +2855,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2926,7 +2926,7 @@ dashboard_final
 
 ```{r}
 
-orden_meses <- c("December", "January", "February", "March", "April", "May","June", "July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May","June", "July 1 - 17")
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 2`), !is.na(`1er Contacto`)) %>%
@@ -2963,7 +2963,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -3012,7 +3012,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3263,7 +3263,7 @@ generar_boxplot_inmueble(df, "Este")
 ### Equipetrol
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July 1 - 10")
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July 1 - 17")
 
 df_procesado <- df %>%
   filter(`Zona 1` == "Equipetrol") %>% 
@@ -3301,7 +3301,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -3351,7 +3351,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3459,7 +3459,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -3509,7 +3509,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3618,7 +3618,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -3668,7 +3668,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3776,7 +3776,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -3826,7 +3826,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3934,7 +3934,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -3984,7 +3984,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -4092,7 +4092,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -4142,7 +4142,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -4250,7 +4250,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-10) 2026` = `July 1 - 10`,
+    `Julio (1-17) 2026` = `July 1 - 17`,
     Pct_Numerico)
 
 # ==========================================
@@ -4300,7 +4300,7 @@ barras <- list(
   list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#A2D9CE"),
-  list(11, tabla_diseño$`Julio (1-10) 2026`,"#A2D9CE"))
+  list(11, tabla_diseño$`Julio (1-17) 2026`,"#A2D9CE"))
 
 tabla_dt <- datatable(
   tabla_diseño,
