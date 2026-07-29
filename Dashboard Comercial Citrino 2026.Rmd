@@ -1778,7 +1778,7 @@ layout_desag(g1, g2,
 library(DT)
 library(purrr)
 
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
@@ -1927,7 +1927,7 @@ dashboard_final
 ### Presupuesto de inversión
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   # Cambiamos el filtro inicial a la columna de presupuesto
@@ -2303,7 +2303,7 @@ generar_boxplot_inmueble(df, "Lote Condominio")
 
 ```{r}
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 mes_ultimo_acumulado01)
+                 mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   filter(!is.na(Objeto), !is.na(`1er Contacto`)) %>%
@@ -2461,7 +2461,7 @@ dashboard_final
 ```{r}
 
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 mes_ultimo_acumulado01)
+                 mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   filter(!is.na(Pago), !is.na(`1er Contacto`)) %>%
@@ -2813,7 +2813,7 @@ generar_boxplot_inmueble(df, "Anticrético")
 ### Principal Zona
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 1`), !is.na(`1er Contacto`)) %>%
@@ -2969,7 +2969,7 @@ dashboard_final
 
 ```{r}
 
-orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 2`), !is.na(`1er Contacto`)) %>%
@@ -3307,7 +3307,7 @@ generar_boxplot_inmueble(df, "Este")
 
 ```{r}
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 mes_ultimo_acumulado01)
+                 mes_ultimo_acumulado02)
 
 df_procesado <- df %>%
   filter(`Zona 1` == "Equipetrol") %>% 
