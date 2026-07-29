@@ -93,13 +93,12 @@ historico_Citrino_inicial <- "2025-12-01"
 
 # verificacion del ultimo mes
 mes_ultimo <- "2026-07-01"
-mes_ultimo_acumulado01 <- "July 1 - 31"
-mes_ultimo_acumulado02 <- "Julio 1 al 31"
+mes_ultimo_acumulado01 <- "Julio 1 al 31"
 
 # reeemplazar datos generales
 
-# mes_ultimo_acumulado03 <- `July 1 - 31`
-# mes_ultimo_acumulado04 <- `Julio (1-31) 2026`
+# mes_ultimo_acumulado01 <- `Julio 1 al 31`
+# mes_ultimo_acumulado03 <- `Julio (1-31) 2026`
 
 
 ### Titulos de las tablas y graficos
@@ -1778,14 +1777,14 @@ layout_desag(g1, g2,
 library(DT)
 library(purrr)
 
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado02)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -1811,7 +1810,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = `June`,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 grafico_rosca <- highchart() %>%
@@ -1927,7 +1926,7 @@ dashboard_final
 ### Presupuesto de inversión
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado02)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   # Cambiamos el filtro inicial a la columna de presupuesto
@@ -1935,7 +1934,7 @@ df_procesado <- df %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses),
     # NUEVO: Segmentación del presupuesto en rangos legibles para la tabla y rosca
@@ -1973,7 +1972,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = `June`,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2303,14 +2302,14 @@ generar_boxplot_inmueble(df, "Lote Condominio")
 
 ```{r}
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 mes_ultimo_acumulado02)
+                 mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(Objeto), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Objeto, Mes) %>%
@@ -2340,7 +2339,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -2461,14 +2460,14 @@ dashboard_final
 ```{r}
 
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 mes_ultimo_acumulado02)
+                 mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(Pago), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Pago, Mes) %>%
@@ -2498,7 +2497,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -2813,14 +2812,14 @@ generar_boxplot_inmueble(df, "Anticrético")
 ### Principal Zona
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado02)
+orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 1`), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(`Zona 1`, Mes) %>%
@@ -2849,7 +2848,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2969,14 +2968,14 @@ dashboard_final
 
 ```{r}
 
-orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado02)
+orden_meses <- c("December", "January", "February", "March", "April", "May","June", mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 2`), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(`Zona 2`, Mes) %>%
@@ -3006,7 +3005,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -3307,7 +3306,7 @@ generar_boxplot_inmueble(df, "Este")
 
 ```{r}
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 mes_ultimo_acumulado02)
+                 mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(`Zona 1` == "Equipetrol") %>% 
@@ -3315,7 +3314,7 @@ df_procesado <- df %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -3345,7 +3344,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -3473,7 +3472,7 @@ filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -3503,7 +3502,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -3632,7 +3631,7 @@ filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -3662,7 +3661,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -3790,7 +3789,7 @@ filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -3820,7 +3819,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -3948,7 +3947,7 @@ filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -3978,7 +3977,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -4106,7 +4105,7 @@ filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -4136,7 +4135,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
@@ -4264,7 +4263,7 @@ filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
   mutate(
     Fecha = as.Date(`1er Contacto`),
     Mes = case_when(
-      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado02,
+      Fecha >= as.Date(mes_ultimo) & Fecha <= as.Date(semana_actual_final) ~ mes_ultimo_acumulado01,
       TRUE ~ format(Fecha, "%B")),
     Mes = factor(Mes, levels = orden_meses)) %>%
   group_by(Inmueble, Mes) %>%
@@ -4294,7 +4293,7 @@ tabla_diseño <- df_procesado %>%
     `Abril-2026` = April,
     `Mayo-2026` = May,
     `Junio-2026` = June,
-    `Julio (1-31) 2026` = `July 1 - 31`,
+    `Julio (1-31) 2026` = `Julio 1 al 31`,
     Pct_Numerico)
 
 # ==========================================
