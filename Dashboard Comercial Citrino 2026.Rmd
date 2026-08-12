@@ -93,7 +93,7 @@ historico_Citrino_inicial <- "2025-12-01"
 
 # verificacion del ultimo mes
 mes_ultimo <- "2026-08-01"
-mes_ultimo_acumulado01 <- "Agosto 1 al 9"
+mes_ultimo_acumulado01 <- "Agosto 10 al 16"
 
 # reeemplazar datos generales
 
