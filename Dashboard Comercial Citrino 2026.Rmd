@@ -102,8 +102,8 @@ mes_ultimo_acumulado01 <- "Agosto 17 al 23"
 
 
 ### Titulos de las tablas y graficos
-titulo_semana_actual <- "SEMANA ACTUAL (10 AL 16 AGOSTO)"
-titulo_semana_anterior <- "SEMANA ANTERIOR ( 03 AL 09 AGOSTO)"
+titulo_semana_actual <- "SEMANA ACTUAL (17 AL 23 AGOSTO)"
+titulo_semana_anterior <- "SEMANA ANTERIOR ( 10 AL 16 AGOSTO)"
 titulo_objetico_RA <- "OBJETIVO R.A. (PROM. 7 MESES)"
 titulo_objetico_RC <- "OBJETIVO R.C. (PROM. 7 MESES)"
 titulo_leads_semanal <- "SEMANAL: Leads histórico según responsable (Diciembre 2025 a Agosto 2026)"
