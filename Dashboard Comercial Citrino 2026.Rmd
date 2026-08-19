@@ -80,11 +80,11 @@ df <- df %>%
 ```{r}
 #================================================================================================
 ### Estrutura de los datos generales
-semana_actual_inicial <- "2026-08-10"
-semana_actual_final <-   "2026-08-17"
+semana_actual_inicial <- "2026-08-17"
+semana_actual_final <-   "2026-08-23"
 
-semana_anterior_inicial <- "2026-08-03"
-semana_anterior_final <-   "2026-08-09"
+semana_anterior_inicial <- "2026-08-10"
+semana_anterior_final <-   "2026-08-16"
 
 historico2026_inicial <- "2026-01-01"
 historico2026_final <- "2026-07-31"
@@ -93,12 +93,12 @@ historico_Citrino_inicial <- "2025-12-01"
 
 # verificacion del ultimo mes
 mes_ultimo <- "2026-08-01"
-mes_ultimo_acumulado01 <- "Agosto 10 al 16"
+mes_ultimo_acumulado01 <- "Agosto 17 al 23"
 
 # reeemplazar datos generales
 
-# mes_ultimo_acumulado01 <- `Agosto 10 al 16`
-# mes_ultimo_acumulado03 <- `Agosto(10-16) 2026`
+# mes_ultimo_acumulado01 <- `Agosto 17 al 23`
+# mes_ultimo_acumulado03 <- `Agosto(17-23) 2026`
 
 
 ### Titulos de las tablas y graficos
@@ -1825,7 +1825,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = `June`,
     `Julio-2026` = `July`,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 grafico_rosca <- highchart() %>%
@@ -1873,7 +1873,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -1990,7 +1990,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = `June`,
     `Julio-2026` = `July`,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2039,7 +2039,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2360,7 +2360,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -2411,7 +2411,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2520,7 +2520,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -2571,7 +2571,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2")
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2")
 )
 
 tabla_dt <- datatable(
@@ -2874,7 +2874,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2924,7 +2924,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3033,7 +3033,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -3083,7 +3083,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3375,7 +3375,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -3426,7 +3426,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3535,7 +3535,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -3586,7 +3586,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 
 tabla_dt <- datatable(
@@ -3697,7 +3697,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -3748,7 +3748,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 
 tabla_dt <- datatable(
@@ -3858,7 +3858,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -3909,7 +3909,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 
 tabla_dt <- datatable(
@@ -4019,7 +4019,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -4070,7 +4070,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 
 tabla_dt <- datatable(
@@ -4180,7 +4180,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -4231,7 +4231,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 
 tabla_dt <- datatable(
@@ -4341,7 +4341,7 @@ tabla_diseño <- df_procesado %>%
     `Mayo-2026` = May,
     `Junio-2026` = June,
     `Julio-2026` = July,
-    `Agosto(10-16) 2026` = `Agosto 10 al 16`,
+    `Agosto(17-23) 2026` = `Agosto 17 al 23`,
     Pct_Numerico)
 
 # ==========================================
@@ -4392,7 +4392,7 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto(10-16) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto(17-23) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
