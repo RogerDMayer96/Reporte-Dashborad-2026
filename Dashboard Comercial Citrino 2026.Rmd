@@ -498,7 +498,7 @@ presupuestos <- list(
   "Ad Nov 25"      = list(var = "Presupuesto_adnov25",     valor = 1451, color = "#2C3E50", label = "Presupuesto Ad Nov 25:"),
   "Ad 27 Feb 26"   = list(var = "Presupuesto_adfeb26",     valor = 886,  color = "#4E148C", label = "Presupuesto Ad 27 Feb 26:"),
   "Ad 17 Abr 26"   = list(var = "Presupuesto_17abril26",    valor = 270,  color = "#03B5AA", label = "Presupuesto Ad 17 Abr 26:"),
-  "Ad 30 Abr 26"   = list(var = "Presupuesto_30abril26",    valor = 427,  color = "#ECA400", label = "Presupuesto Ad 30 Abr 26:"),
+  "Ad 30 Abr 26"   = list(var = "Presupuesto_30abril26",    valor = 570.87,  color = "#ECA400", label = "Presupuesto Ad 30 Abr 26:"),
   "Referido"       = list(var = "Presupuesto_referido",     valor = 0,    color = "#BA3B46", label = "Presupuesto Referido:"),
   "Tiktok 25"      = list(var = "Presupuesto_tiktok25",     valor = 1936, color = "#63372C", label = "Presupuesto Tiktok 25:"),
   "Tiktok 26"      = list(var = "Presupuesto_tiktok26",     valor = 1936, color = "#046865", label = "Presupuesto Tiktok 26:"))
