@@ -122,34 +122,34 @@ df <- df %>%
 ```{r}
 #================================================================================================
 ### Estrutura de los datos generales
-semana_actual_inicial <- "2026-09-21"
-semana_actual_final <-   "2026-09-27"
+semana_actual_inicial <- "2026-09-28"
+semana_actual_final <-   "2026-10-04"
 
-semana_anterior_inicial <- "2026-09-14"
-semana_anterior_final <-   "2026-09-220"
+semana_anterior_inicial <- "2026-09-21"
+semana_anterior_final <-   "2026-09-27"
 
 historico2026_inicial <- "2026-01-01"
-historico2026_final <- "2026-08-31"
+historico2026_final <- "2026-09-30"
 
 historico_Citrino_inicial <- "2025-12-01"
 
 # verificacion del ultimo mes
 mes_ultimo <- "2026-09-01"
-mes_ultimo_acumulado01 <- "Septiembre 1 al 27"
+mes_ultimo_acumulado01 <- "Septiembre 1 al 30"
 
 # reeemplazar datos generales
 
-# mes_ultimo_acumulado01 <- `Septiembre 1 al 27`
-# mes_ultimo_acumulado03 <- `Septiembre (1-27) 2026`
+# mes_ultimo_acumulado01 <- `Octubre 1 al 4`
+# mes_ultimo_acumulado03 <- `Octubre (1-4) 2026`
 
 
 ### Titulos de las tablas y graficos
-titulo_semana_actual <- "SEMANA ACTUAL (21 AL 27 SEPTIEMBRE)"
-titulo_semana_anterior <- "SEMANA ANTERIOR (14 AL 20 SEPTIEMBRE)"
-titulo_objetico_RA <- "OBJETIVO R.A. (PROM. 8 MESES)"
-titulo_objetico_RC <- "OBJETIVO R.C. (PROM. 8 MESES)"
-titulo_leads_semanal <- "SEMANAL: Leads histórico según responsable (Diciembre 2025 a Septiembre 2026)"
-titulo_leads_mensual <- "MENSUAL: Leads histórico según responsable (Diciembre 2025 a Septiembre 2026)"
+titulo_semana_actual <- "SEMANA ACTUAL (28 SEPTIEMBRE AL 04 OCTUBRE)"
+titulo_semana_anterior <- "SEMANA ANTERIOR (21 AL 27 SEPTIEMBRE)"
+titulo_objetico_RA <- "OBJETIVO R.A. (PROM. 9 MESES)"
+titulo_objetico_RC <- "OBJETIVO R.C. (PROM. 9 MESES)"
+titulo_leads_semanal <- "SEMANAL: Leads histórico según responsable (Diciembre 2025 a Octubre 2026)"
+titulo_leads_mensual <- "MENSUAL: Leads histórico según responsable (Diciembre 2025 a Octubre 2026)"
 
 #================================================================================================
 library(dplyr)
@@ -347,7 +347,8 @@ config_meses <- list(
   "Junio"          = list(inicio = "2026-06-01", fin = "2026-06-30"),
   "Julio"          = list(inicio = "2026-07-01", fin = "2026-07-31"),
   "Agosto"         = list(inicio = "2026-08-01", fin = "2026-08-31"),
-  "Septiembre"     = list(inicio = "2026-09-01", fin = "2026-09-30"))
+  "Septiembre"     = list(inicio = "2026-09-01", fin = "2026-09-30"),
+  "Octubre"        = list(inicio = "2026-10-01", fin = "2026-10-31"))
 
 estados_desde <- list(
   contactado  = c("3. Contactado","4. Calificado","5. Info enviada","6. Visita","7. Negociación","8. Cerrado"),
@@ -525,7 +526,9 @@ widget_reactable <- reactable(
     colGroup(name = "AGOSTO 2026", columns = c("CANTIDAD_Agosto", "RATIO_AVANCE_Agosto"),
              headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
     colGroup(name = "SEPTIEMBRE 2026", columns = c("CANTIDAD_Septiembre", "RATIO_AVANCE_Septiembre"),
-             headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center"))))
+             headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
+    colGroup(name = "OCTUBRE 2026", columns = c("CANTIDAD_Octubre", "RATIO_AVANCE_Octubre"),
+             headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center"))))
 
 browsable(tagList(estilos_hover_fijo, widget_reactable))
 ```
@@ -798,7 +801,8 @@ config_meses <- list(
   "Junio"   = list(inicio = "2026-06-01", fin = "2026-06-30"),
   "Julio"   = list(inicio = "2026-07-01", fin = "2026-07-31"),
   "Agosto"  = list(inicio = "2026-08-01", fin = "2026-08-31"),
-  "Septiembre"  = list(inicio = "2026-09-01", fin = "2026-09-30"))
+  "Septiembre"  = list(inicio = "2026-09-01", fin = "2026-09-30"),
+  "Octubre"  = list(inicio = "2026-10-01", fin = "2026-10-31"))
 # -- Funciones de cálculo exactas ---------------------------------------------
 contar_periodo <- function(df, objeto, f_ini, f_fin) {
   base <- df$`1er Contacto` >= f_ini & df$`1er Contacto` <= f_fin & df$Objeto == objeto
@@ -969,7 +973,8 @@ render_objeto <- function(df, objeto) {
                           "C_Enero", "R_Enero", "C_Febrero", "R_Febrero", 
                           "C_Marzo", "R_Marzo", "C_Abril", "R_Abril", 
                           "C_Mayo", "R_Mayo", "C_Junio", "R_Junio", "C_Julio", "R_Julio",
-                          "C_Agosto", "R_Agosto","C_Septiembre", "R_Septiembre")
+                          "C_Agosto", "R_Agosto","C_Septiembre", "R_Septiembre",
+                          "C_Octubre", "R_Octubre")
   colnames(df_mes) <- columnas_esperadas
   
   df_ratios_only <- df_mes[, seq(3, 15, by = 2)]
@@ -999,7 +1004,9 @@ render_objeto <- function(df, objeto) {
       C_Agosto   = colDef(name = "CANTIDAD", cell = crear_render_barra("#A2D9CE", obtener_max_mes("C_Agosto")), headerStyle = estilo_cabecera_comun),
       R_Agosto   = colDef(name = "RATIO AVANCE", cell = render_termico, headerStyle = estilo_cabecera_comun),
       C_Septiembre   = colDef(name = "CANTIDAD", cell = crear_render_barra("#A2D9CE", obtener_max_mes("C_Septiembre")), headerStyle = estilo_cabecera_comun),
-      R_Septiembre   = colDef(name = "RATIO AVANCE", cell = render_termico, headerStyle = estilo_cabecera_comun)),
+      R_Septiembre   = colDef(name = "RATIO AVANCE", cell = render_termico, headerStyle = estilo_cabecera_comun),
+      C_Octubre   = colDef(name = "CANTIDAD", cell = crear_render_barra("#A2D9CE", obtener_max_mes("C_Octubre")), headerStyle = estilo_cabecera_comun),
+      R_Octubre   = colDef(name = "RATIO AVANCE", cell = render_termico, headerStyle = estilo_cabecera_comun)),
     columnGroups = list(
       colGroup(name = "ENERO", columns = c("C_Enero","R_Enero"), headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
       colGroup(name = "FEBRERO", columns = c("C_Febrero","R_Febrero"), headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
@@ -1009,7 +1016,8 @@ render_objeto <- function(df, objeto) {
       colGroup(name = "JUNIO", columns = c("C_Junio","R_Junio"), headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
       colGroup(name = "JULIO", columns = c("C_Julio","R_Julio"), headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
       colGroup(name = "AGOSTO", columns = c("C_Agosto","R_Agosto"), headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
-      colGroup(name = "SEPTIEMBRE", columns = c("C_Septiembre","R_Septiembre"), headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center"))
+      colGroup(name = "SEPTIEMBRE", columns = c("C_Septiembre","R_Septiembre"), headerStyle = list(backgroundColor = "#2C3E50", color = "#FFFFFF", fontWeight = "bold", textAlign = "center")),
+      colGroup(name = "OCTUBRE", columns = c("C_Octubre","R_Octubre"), headerStyle = list(backgroundColor = "#4A6572", color = "#FFFFFF", fontWeight = "bold", textAlign = "center"))
     ))
   # Layout de Paneles Flexibles con barras de desplazamiento nativas si es necesario
 estilo_panel  <- "width:100%; padding:14px; background:#fff; border-radius:8px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display:flex; flex-direction:column; overflow-x: auto;"
@@ -1468,7 +1476,7 @@ df_canal <- df %>%
   group_by(Semana, Canal) %>%
   summarise(Suma_Registros = n(), .groups = "drop")
 
-orden_canales <- c("Tiktok 26", "Ad 30 Abr 26", "Ad 17 Abr 26",
+orden_canales <- c("Ad Sep 26","Tiktok 26", "Ad 30 Abr 26", "Ad 17 Abr 26",
                    "Ad 27 Feb 26", "Referido", "Tiktok 25", "Ad Nov 25")
 
 # ── Estilos y Selectores Comunes (Hover Dark e Inyección Fija) ────────────────
@@ -1582,7 +1590,8 @@ cortes <- list(
   Feb26 = c("2025-12-01","2026-02-28"), Mar26 = c("2025-12-01","2026-03-31"),
   Abr26 = c("2025-12-01","2026-04-30"), May26 = c("2025-12-01","2026-05-31"),
   Jun26 = c("2025-12-01","2026-06-30"), Jul26 = c("2025-12-01","2026-07-31"),
-  Ago26 = c("2025-12-01","2026-08-31"), Sep26 = c("2025-12-01","2026-09-30"))
+  Ago26 = c("2025-12-01","2026-08-31"), Sep26 = c("2025-12-01","2026-09-30"),
+  Sep26 = c("2025-12-01","2026-09-30"), Oct26 = c("2025-12-01","2026-10-31"))
 
 df_acum <- df_canal %>%
   group_by(Canal) %>%
@@ -1597,12 +1606,13 @@ df_acum <- df_canal %>%
     Acum_Jul26 = sum(Suma_Registros[Semana >= cortes$Jul26[1] & Semana <= cortes$Jul26[2]], na.rm=TRUE),
     Acum_Ago26 = sum(Suma_Registros[Semana >= cortes$Ago26[1] & Semana <= cortes$Ago26[2]], na.rm=TRUE),
     Acum_Sep26 = sum(Suma_Registros[Semana >= cortes$Sep26[1] & Semana <= cortes$Sep26[2]], na.rm=TRUE),
+    Acum_Oct26 = sum(Suma_Registros[Semana >= cortes$Oct26[1] & Semana <= cortes$Oct26[2]], na.rm=TRUE),
     .groups = "drop") %>%
   mutate(`Var Ene` = Acum_Ene26 - Acum_Dic25, `Var Feb` = Acum_Feb26 - Acum_Ene26,
          `Var Mar` = Acum_Mar26 - Acum_Feb26, `Var Abr` = Acum_Abr26 - Acum_Mar26,
          `Var May` = Acum_May26 - Acum_Abr26, `Var Jun` = Acum_Jun26 - Acum_May26,
          `Var Jul` = Acum_Jul26 - Acum_Jun26, `Var Ago` = Acum_Ago26 - Acum_Jul26,
-         `Var Sep` = Acum_Sep26 - Acum_Ago26)
+         `Var Sep` = Acum_Sep26 - Acum_Ago26, `Var Oct` = Acum_Oct26 - Acum_Sep26)
 
 fila_tot_acum <- bind_cols(
   tibble(Canal = "TOTAL"),
@@ -1646,7 +1656,9 @@ reactable(
     Acum_Ago26 = colDef(name = "Ago 2026", cell = crear_barra_canal("#AED6F1", max_acum_mes("Acum_Ago26")), headerStyle = estilo_cabecera_comun),
     `Var Ago`  = colDef(name = "Var. Ago", cell = render_var_dinamica, headerStyle = estilo_cabecera_comun),
     Acum_Sep26 = colDef(name = "Sep 2026", cell = crear_barra_canal("#AED6F1", max_acum_mes("Acum_Sep26")), headerStyle = estilo_cabecera_comun),
-    `Var Sep`  = colDef(name = "Var. Sep", cell = render_var_dinamica, headerStyle = estilo_cabecera_comun)
+    `Var Sep`  = colDef(name = "Var. Sep", cell = render_var_dinamica, headerStyle = estilo_cabecera_comun),
+    Acum_Oct26 = colDef(name = "Oct 2026", cell = crear_barra_canal("#AED6F1", max_acum_mes("Acum_Oct26")), headerStyle = estilo_cabecera_comun),
+    `Var Oct`  = colDef(name = "Var. Oct", cell = render_var_dinamica, headerStyle = estilo_cabecera_comun)
   )
 )
 
@@ -1851,7 +1863,7 @@ library(DT)
 library(purrr)
 
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 "July","August", mes_ultimo_acumulado01)
+                 "July","August","September", mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(Inmueble), !is.na(`1er Contacto`)) %>%
@@ -1886,7 +1898,8 @@ tabla_diseño <- df_procesado %>%
     `Junio-2026` = `June`,
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 grafico_rosca <- highchart() %>%
@@ -1934,8 +1947,9 @@ barras <- list(
   list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
   list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
+  list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
+  list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
+  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -1950,11 +1964,11 @@ tabla_dt <- datatable(
     scrollY    = "360px",  # Altura fija nativa dentro de DT para ver cómodamente todas las filas
     scrollCollapse = TRUE, 
     columnDefs = list(
-      list(visible = FALSE, targets = 13), 
+      list(visible = FALSE, targets = 14), 
       list(width = '140px', targets = 0),  
-      list(width = '85px', targets = 1:13), 
+      list(width = '85px', targets = 1:14), 
       list(className = "dt-left",   targets = 0),
-      list(className = "dt-right",  targets = 1:13)),
+      list(className = "dt-right",  targets = 1:14)),
     initComplete = JS(
       "function(settings, json) {",
       "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
@@ -1975,7 +1989,7 @@ tabla_dt <- reduce(barras, function(tbl, b) {
 # Aplicación del Semáforo Condicional
 tabla_dt <- tabla_dt %>% formatStyle(
   columns = 3,
-  valueColumns = 14, 
+  valueColumns = 15, 
   background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
   backgroundSize     = "98% 88%",
   backgroundRepeat   = "no-repeat",
@@ -2005,7 +2019,7 @@ dashboard_final
 
 ```{r}
 orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
-                 "July", "August",mes_ultimo_acumulado01)
+                 "July", "August","September",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   # Cambiamos el filtro inicial a la columna de presupuesto
@@ -2053,7 +2067,8 @@ tabla_diseño <- df_procesado %>%
     `Junio-2026` = `June`,
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2092,62 +2107,7 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT CON SCROLL INTERNO NATIVO
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
 
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '140px', targets = 0),  
-      list(width = '85px', targets = 1:13), 
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-right",  targets = 1:13)),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional sobre la columna %
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID OPTIMIZADO
 # ==========================================
@@ -2175,7 +2135,7 @@ dashboard_final
 
 ```{r}
 orden_meses_completo <- c("Diciembre-2025", "Enero-2026", "Febrero-2026", "Marzo-2026",
-                           "Abril-2026", "Mayo-2026", "Junio-2026", "Julio-2026","Agosto-2026","Septiembre-2026")
+                           "Abril-2026", "Mayo-2026", "Junio-2026", "Julio-2026","Agosto-2026","Septiembre-2026","Octubre-2026")
 
 generar_boxplot_inmueble <- function(df, tipo_inmueble, color_relleno = "#44BBA4",
                                       color_outlier = "#F39C12", color_promedio = "#E74C3C") {
@@ -2197,6 +2157,7 @@ generar_boxplot_inmueble <- function(df, tipo_inmueble, color_relleno = "#44BBA4
         format(Fecha, "%m") == "07" ~ "Julio-2026",
         format(Fecha, "%m") == "08" ~ "Agosto-2026",
         format(Fecha, "%m") == "09" ~ "Septiembre-2026",
+        format(Fecha, "%m") == "10" ~ "Octubre-2026",
         TRUE ~ format(Fecha, "%B-%Y")),
       Mes = factor(Mes, levels = orden_meses_completo)) %>%
     filter(Inmueble_Clean == tipo_inmueble)
@@ -2386,8 +2347,8 @@ generar_boxplot_inmueble(df, "Lote Condominio")
 ### Tipo de Objetivo
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July","August",
-                 mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
+                 "July", "August","September",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(Objeto), !is.na(`1er Contacto`)) %>%
@@ -2423,10 +2384,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -2467,62 +2429,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT CON SCROLL INTERNO NATIVO
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  # Altura fija nativa dentro de DT para ver cómodamente todas las filas
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '140px', targets = 0),  
-      list(width = '85px', targets = 1:13), 
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-right",  targets = 1:13)),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID OPTIMIZADO
@@ -2548,8 +2454,8 @@ dashboard_final
 
 ```{r}
 
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July","August",
-                 mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
+                 "July", "August","September",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(Pago), !is.na(`1er Contacto`)) %>%
@@ -2585,10 +2491,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -2629,63 +2536,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT CON SCROLL INTERNO NATIVO
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2")
-)
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  # Altura fija nativa dentro de DT para ver cómodamente todas las filas
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '140px', targets = 0),  
-      list(width = '85px', targets = 1:13), 
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-right",  targets = 1:13)),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID OPTIMIZADO
@@ -2722,8 +2572,6 @@ dashboard_final
 ### Ptto ($) Desarrollo
 
 ```{r}
-orden_meses_completo <- c("Diciembre-2025", "Enero-2026", "Febrero-2026", "Marzo-2026",
-                           "Abril-2026", "Mayo-2026", "Junio-2026", "Julio-2026","Agosto-2026","Septiembre-2026")
 
 generar_boxplot_inmueble <- function(df, tipo_inmueble, color_relleno = "#AED6F1",
                                       color_outlier = "#F39C12", color_promedio = "#E74C3C") {
@@ -2745,6 +2593,7 @@ generar_boxplot_inmueble <- function(df, tipo_inmueble, color_relleno = "#AED6F1
         format(Fecha, "%m") == "07" ~ "Julio-2026",
         format(Fecha, "%m") == "08" ~ "Agosto-2026",
         format(Fecha, "%m") == "09" ~ "Septiembre-2026",
+        format(Fecha, "%m") == "10" ~ "Octubre-2026",
         TRUE ~ format(Fecha, "%B-%Y")),
       Mes = factor(Mes, levels = orden_meses_completo)) %>%
     filter(Inmueble_Clean == tipo_inmueble)
@@ -2907,7 +2756,8 @@ generar_boxplot_inmueble(df, "Anticrético")
 ### Principal Zona
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May","June","July","August", mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
+                 "July", "August","September",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 1`), !is.na(`1er Contacto`)) %>%
@@ -2942,10 +2792,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2985,63 +2836,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT CON SCROLL INTERNO NATIVO
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  # Altura fija nativa dentro de DT para ver cómodamente todas las filas
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '140px', targets = 0),  
-      list(width = '85px', targets = 1:13), 
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-right",  targets = 1:13)),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center"
-)
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID OPTIMIZADO
@@ -3067,7 +2861,8 @@ dashboard_final
 
 ```{r}
 
-orden_meses <- c("December", "January", "February", "March", "April", "May","June","July","August", mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
+                 "July", "August","September",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(!is.na(`Zona 2`), !is.na(`1er Contacto`)) %>%
@@ -3103,10 +2898,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -3146,62 +2942,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT CON SCROLL INTERNO NATIVO
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  # Altura fija nativa dentro de DT para ver cómodamente todas las filas
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '140px', targets = 0),  
-      list(width = '85px', targets = 1:13), 
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-right",  targets = 1:13)),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID OPTIMIZADO
@@ -3228,9 +2968,6 @@ dashboard_final
 ### Ptto ($) Equipetrol
 
 ```{r}
-orden_meses_completo <- c("Diciembre-2025", "Enero-2026", "Febrero-2026", "Marzo-2026",
-                           "Abril-2026", "Mayo-2026", "Junio-2026", "Julio-2026","Agosto-2026","Septiembre-2026")
-
 generar_boxplot_inmueble <- function(df, tipo_inmueble, color_relleno = "#FAD7A0",
                                       color_outlier = "#F39C12", color_promedio = "#E74C3C") {
   
@@ -3251,6 +2988,7 @@ generar_boxplot_inmueble <- function(df, tipo_inmueble, color_relleno = "#FAD7A0
         format(Fecha, "%m") == "07" ~ "Julio-2026",
         format(Fecha, "%m") == "08" ~ "Agosto-2026",
         format(Fecha, "%m") == "09" ~ "Septiembre-2026",
+        format(Fecha, "%m") == "10" ~ "Octubre-2026",
         TRUE ~ format(Fecha, "%B-%Y")),
       Mes = factor(Mes, levels = orden_meses_completo)) %>%
     filter(Inmueble_Clean == tipo_inmueble)
@@ -3410,8 +3148,8 @@ generar_boxplot_inmueble(df, "Este")
 ### Equipetrol
 
 ```{r}
-orden_meses <- c("December", "January", "February", "March", "April", "May", "June","July","August",
-                 mes_ultimo_acumulado01)
+orden_meses <- c("December", "January", "February", "March", "April", "May", "June",
+                 "July", "August","September",mes_ultimo_acumulado01)
 
 df_procesado <- df %>%
   filter(`Zona 1` == "Equipetrol") %>% 
@@ -3448,10 +3186,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -3492,64 +3231,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
@@ -3610,10 +3291,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -3654,65 +3336,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
@@ -3774,10 +3397,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -3817,66 +3441,6 @@ grafico_rosca <- highchart() %>%
 
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
-# ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
@@ -3937,10 +3501,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -3981,65 +3546,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
@@ -4100,10 +3606,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -4144,65 +3651,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
 
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
@@ -4263,10 +3711,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -4307,66 +3756,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
-
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
 # ==========================================
@@ -4426,10 +3815,11 @@ tabla_diseño <- df_procesado %>%
     `Marzo-2026` = March,
     `Abril-2026` = April,
     `Mayo-2026` = May,
-    `Junio-2026` = June,
-    `Julio-2026` = July,
-    `Agosto-2026` = August,
-    `Septiembre (1-27) 2026` = `Septiembre 1 al 27`,
+    `Junio-2026` = `June`,
+    `Julio-2026` = `July`,
+    `Agosto-2026` = `August`,
+    `Septiembre-2026` = `September`,
+    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
     Pct_Numerico)
 
 # ==========================================
@@ -4470,65 +3860,6 @@ grafico_rosca <- highchart() %>%
 # ==========================================
 # 5. CONSTRUCCIÓN DE LA TABLA DT OPTIMIZADA EN ANCHOS
 # ==========================================
-barras <- list(
-  list(2, tabla_diseño$`Frecuencia Total`, "#A2D9CE"),
-  list(4, tabla_diseño$`Dic-2025`,         "#7EB3FF"), 
-  list(5, tabla_diseño$`Enero-2026`,       "#7EB3FF"),
-  list(6, tabla_diseño$`Feb-2026`,         "#7EB3FF"),
-  list(7, tabla_diseño$`Marzo-2026`,       "#7EB3FF"),
-  list(8, tabla_diseño$`Abril-2026`,       "#7EB3FF"),
-  list(9, tabla_diseño$`Mayo-2026`,        "#7EB3FF"),
-  list(10, tabla_diseño$`Junio-2026`,      "#7EB3FF"),
-  list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
-  list(12, tabla_diseño$`Agosto-2026`,      "#7EB3FF"),
-  list(13, tabla_diseño$`Septiembre (1-27) 2026`,"#D7BDE2"))
-
-tabla_dt <- datatable(
-  tabla_diseño,
-  rownames  = FALSE,
-  escape    = FALSE,
-  options   = list(
-    paging     = FALSE,    
-    searching  = FALSE,
-    info       = FALSE,
-    dom        = "t",
-    autoWidth  = FALSE, 
-    scrollY    = "360px",  
-    scrollCollapse = TRUE, 
-    columnDefs = list(
-      list(visible = FALSE, targets = 13), 
-      list(width = '120px', targets = 0),   # Un poco más estrecho el nombre del Inmueble
-      list(width = '75px', targets = 1:2),   # Frecuencia y Porcentaje Total
-      list(width = '65px', targets = 3:13),   # Columnas de meses optimizadas (recorre a la izquierda)
-      list(className = "dt-left",   targets = 0),
-      list(className = "dt-center", targets = 1:13) # Centrado para ganar espacio visual
-    ),
-    initComplete = JS(
-      "function(settings, json) {",
-      "  $(this.api().table().header()).css({'background-color': '#2C3E50', 'color': '#ffffff', 'font-family': 'sans-serif'});",
-      "}"
-    ))) %>%
-  formatRound(columns = 2, digits = 0)
-
-# Inyección de las barras de fondo
-tabla_dt <- reduce(barras, function(tbl, b) {
-  tbl %>% formatStyle(
-    columns            = b[[1]],
-    background         = styleColorBar(b[[2]], b[[3]]),
-    backgroundSize     = "98% 88%",
-    backgroundRepeat   = "no-repeat",
-    backgroundPosition = "center")
-}, .init = tabla_dt)
-
-# Aplicación del Semáforo Condicional
-tabla_dt <- tabla_dt %>% formatStyle(
-  columns = 3,
-  valueColumns = 14, 
-  background = styleInterval(c(10.0, 25.0), c("#FADBD8", "#FCF3CF", "#D4EFDF")), 
-  backgroundSize     = "98% 88%",
-  backgroundRepeat   = "no-repeat",
-  backgroundPosition = "center")
-
 # ==========================================
 # 6. ENSAMBLADO EN EL CONTENEDOR FLEX-GRID (65% / 35%)
 # ==========================================
