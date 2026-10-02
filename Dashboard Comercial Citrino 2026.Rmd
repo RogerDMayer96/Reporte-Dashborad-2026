@@ -63,8 +63,8 @@ sheets_list_am <- excel_sheets(temp_file_am)
 df_rv <- read_excel(temp_file_rv, sheet = "Inversores.")
 df_am <- read_excel(temp_file_am, sheet = "Inversores.")
 
-# df_rv <- read_excel("C:/Users/LENOVO/Downloads/Reporte-Dashborad-2026-main/Reporte-Dashborad-2026-main/REGISTROS CLIENTES _ ROLANDO VALENZUELA.xlsx", sheet = "Inversores.")
-# df_am <- read_excel("C:/Users/LENOVO/Downloads/Reporte-Dashborad-2026-main/Reporte-Dashborad-2026-main/REGISTROS CLIENTES _ ALEJANDRO MOSCOSO.xlsx", sheet = "Inversores.")
+# df_rv <- read_excel("C:/Users/LENOVO/Downloads/REGISTROS CLIENTES _ ROLANDO VALENZUELA.xlsx", sheet = "Inversores.")
+# df_am <- read_excel("C:/Users/LENOVO/Downloads/REGISTROS CLIENTES _ ALEJANDRO MOSCOSO.xlsx", sheet = "Inversores.")
 
 # 7. Forzar la columna Resp según el archivo de origen
 #    (garantiza que quede "RV"/"AM" aunque la columna venga vacía
@@ -134,8 +134,8 @@ historico2026_final <- "2026-09-30"
 historico_Citrino_inicial <- "2025-12-01"
 
 # verificacion del ultimo mes
-mes_ultimo <- "2026-09-01"
-mes_ultimo_acumulado01 <- "Septiembre 1 al 30"
+mes_ultimo <- "2026-10-01"
+mes_ultimo_acumulado01 <- "Octubre 1 al 4"
 
 # reeemplazar datos generales
 
@@ -504,7 +504,10 @@ widget_reactable <- reactable(
     RATIO_AVANCE_Agosto   = colDef(name = "RATIO AVANCE", align = "right", cell = render_celda_porcentaje, headerStyle = estilo_cabecera_comun),
 
     CANTIDAD_Septiembre     = colDef(name = "CANTIDAD", align = "right", cell = render_barra_cantidad, headerStyle = estilo_cabecera_comun),
-    RATIO_AVANCE_Septiembre = colDef(name = "RATIO AVANCE", align = "right", cell = render_celda_porcentaje, headerStyle = estilo_cabecera_comun)),
+    RATIO_AVANCE_Septiembre = colDef(name = "RATIO AVANCE", align = "right", cell = render_celda_porcentaje, headerStyle = estilo_cabecera_comun),
+  
+      CANTIDAD_Octubre     = colDef(name = "CANTIDAD", align = "right", cell = render_barra_cantidad, headerStyle = estilo_cabecera_comun),
+    RATIO_AVANCE_Octubre = colDef(name = "RATIO AVANCE", align = "right", cell = render_celda_porcentaje, headerStyle = estilo_cabecera_comun)),
   
   columnGroups = list(
     colGroup(name = "DICIEMBRE 2025", columns = c("CANTIDAD_Diciembre_2025", "RATIO_AVANCE_Diciembre_2025"),
@@ -1737,6 +1740,7 @@ hc_burbujas_sem <- function(data, var_group, var_id, lista_cats, titulo, y_label
 
 ```{r}
 # Gráfico 1: columnas 100% Canal × Inmueble
+library(tidyverse)
 df_g1_inm <- df %>%
   filter(!is.na(Inmueble)) %>%
   mutate(Inmueble = str_to_title(str_trim(Inmueble)),
