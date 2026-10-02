@@ -1739,12 +1739,6 @@ hc_burbujas_sem <- function(data, var_group, var_id, lista_cats, titulo, y_label
 ### Tipo de Inmueble
 
 ```{r}
-# Gráfico 1: columnas 100% Canal × Inmueble
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(readr)
-
 df_g1_inm <- df %>%
   filter(!is.na(Inmueble)) %>%
   mutate(Inmueble = str_to_title(str_trim(Inmueble)),
