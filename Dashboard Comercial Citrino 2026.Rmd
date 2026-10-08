@@ -122,11 +122,11 @@ df <- df %>%
 ```{r}
 #================================================================================================
 ### Estrutura de los datos generales
-semana_actual_inicial <- "2026-09-28"
-semana_actual_final <-   "2026-10-04"
+semana_actual_inicial <- "2026-10-05"
+semana_actual_final <-   "2026-10-11"
 
-semana_anterior_inicial <- "2026-09-21"
-semana_anterior_final <-   "2026-09-27"
+semana_anterior_inicial <- "2026-09-28"
+semana_anterior_final <-   "2026-10-04"
 
 historico2026_inicial <- "2026-01-01"
 historico2026_final <- "2026-09-30"
@@ -135,17 +135,17 @@ historico_Citrino_inicial <- "2025-12-01"
 
 # verificacion del ultimo mes
 mes_ultimo <- "2026-10-01"
-mes_ultimo_acumulado01 <- "Octubre 1 al 4"
+mes_ultimo_acumulado01 <- "Octubre 1 al 11"
 
 # reeemplazar datos generales
 
-# mes_ultimo_acumulado01 <- `Octubre 1 al 4`
-# mes_ultimo_acumulado03 <- `Octubre (1-4) 2026`
+# mes_ultimo_acumulado01 <- `Octubre 1 al 11`
+# mes_ultimo_acumulado03 <- `Octubre (1-11) 2026`
 
 
 ### Titulos de las tablas y graficos
-titulo_semana_actual <- "SEMANA ACTUAL (28 SEPTIEMBRE AL 04 OCTUBRE)"
-titulo_semana_anterior <- "SEMANA ANTERIOR (21 AL 27 SEPTIEMBRE)"
+titulo_semana_actual <- "SEMANA ACTUAL (05 AL 11 OCTUBRE)"
+titulo_semana_anterior <- "SEMANA ANTERIOR (28 SEPTIEMBRE AL 04 OCTUBRE)"
 titulo_objetico_RA <- "OBJETIVO R.A. (PROM. 9 MESES)"
 titulo_objetico_RC <- "OBJETIVO R.C. (PROM. 9 MESES)"
 titulo_leads_semanal <- "SEMANAL: Leads histórico según responsable (Diciembre 2025 a Octubre 2026)"
@@ -1907,7 +1907,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 grafico_rosca <- highchart() %>%
@@ -1957,7 +1957,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2076,7 +2076,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -2127,7 +2127,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2453,7 +2453,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -2506,7 +2506,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2617,7 +2617,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -2670,7 +2670,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -2975,7 +2975,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -3027,7 +3027,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3138,7 +3138,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 # ==========================================
 # 4. CONFIGURACIÓN DEL GRÁFICO DE ROSCA (%) OPTIMIZADO
@@ -3190,7 +3190,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3483,7 +3483,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -3536,7 +3536,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3645,7 +3645,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -3698,7 +3698,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3808,7 +3808,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -3860,7 +3860,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -3969,7 +3969,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -4022,7 +4022,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -4131,7 +4131,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -4184,7 +4184,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -4293,7 +4293,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -4346,7 +4346,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
@@ -4455,7 +4455,7 @@ tabla_diseño <- df_procesado %>%
     `Julio-2026` = `July`,
     `Agosto-2026` = `August`,
     `Septiembre-2026` = `September`,
-    `Octubre (1-4) 2026` = `Octubre 1 al 4`,
+    `Octubre (1-11) 2026` = `Octubre 1 al 11`,
     Pct_Numerico)
 
 # ==========================================
@@ -4508,7 +4508,7 @@ barras <- list(
   list(11, tabla_diseño$`Julio-2026`,      "#7EB3FF"),
   list(12, tabla_diseño$`Agosto-2026`,     "#7EB3FF"),
   list(13, tabla_diseño$`Septiembre-2026`, "#7EB3FF"),
-  list(14, tabla_diseño$`Octubre (1-4) 2026`,"#D7BDE2"))
+  list(14, tabla_diseño$`Octubre (1-11) 2026`,"#D7BDE2"))
 
 tabla_dt <- datatable(
   tabla_diseño,
